@@ -1,12 +1,13 @@
 import {React, useState, useRef, useEffect} from 'react';
 import "../LogIn.css"
+import NavigationBar from '../NavigationBar';
 
 export function LogIn(){
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('username');
-    const [pass, setPass] = useState('password');
+    const [user, setUser] = useState('');
+    const [pass, setPass] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSucess] = useState(false);
 
@@ -23,7 +24,9 @@ export function LogIn(){
     }
 
     return (
+        <div className='login-container'>
         <section>
+            <NavigationBar />
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <form>
                     <input
@@ -32,6 +35,7 @@ export function LogIn(){
                         ref={userRef}
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
+                        placeholder={"username"}
                         required
                     />
                     <input
@@ -40,6 +44,7 @@ export function LogIn(){
                         ref={userRef}
                         onChange={(e) => setPass(e.target.value)}
                         value={pass}
+                        placeholder={"password"}
                         required
                     />
                     <button>Sign In</button>
@@ -48,6 +53,7 @@ export function LogIn(){
                     sign up
                 </p>
         </section>
+        </div>
     )
 }
 export default LogIn;

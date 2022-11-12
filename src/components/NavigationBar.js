@@ -45,7 +45,7 @@ function NavigationBar() {
                     alt = "logo"/>
                     </Link>
 
-                    <div className='meun-icon' onClick={handleClick}>
+                    <div className='menu-icon' onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                     </div>
 
@@ -72,7 +72,6 @@ function NavigationBar() {
                     {button 
                     && <Button buttonStyle='btn-fancy'> SIGN UP
                     </Button>}
-
                 </div>
             </nav>
         </>

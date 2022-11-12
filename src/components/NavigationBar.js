@@ -76,7 +76,7 @@ function NavigationBar() {
 
                     {/* sign up section */}
                     {button 
-                    && <Button buttonStyle='btn-fancy'> SIGN UP
+                    && <Button buttonStyle='btn--fancy'> SIGN UP
                     </Button>}
                 </div>
             </nav>

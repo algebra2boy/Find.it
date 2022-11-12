@@ -24,9 +24,10 @@ export function LogIn(){
     }
 
     return (
+        <>
+        <NavigationBar />
         <div className='login-container'>
         <section>
-            <NavigationBar />
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <form>
                     <input
@@ -54,6 +55,7 @@ export function LogIn(){
                 </p>
         </section>
         </div>
+        </>
     )
 }
 export default LogIn;

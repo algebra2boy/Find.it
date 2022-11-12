@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from flask_mysqldb import MySQL
+from flask_mysql_connector import MySQL
 import datetime
   
 x = datetime.datetime.now()
@@ -7,27 +8,31 @@ x = datetime.datetime.now()
 # Initializing flask app
 app = Flask(__name__)
 
-app.config['MYSWL_HOST'] = 'localhost'
-app.config['MySQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flask'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_DATABASE'] = 'items_collection'
+app.config['MYSQL_PASSWORD'] = 'heffeOfOhill'
 
 mysql = MySQL(app)
 
-cursor = mysql.connection.cursor()
+EXAMPLE_SQL = 'select * from user'
 
-# Home page  
-@app.route('/')
-def home_page():
-  return "hello"
+# using the new_cursor() method
+@app.route('/new_cursor')
+def new_cursor():
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(EXAMPLE_SQL)
+  output = cur.fetchall()
+  return str(output)
   
 # Login page
-@app.route('/login', methods = ['GET', 'POST'])
+@app.post('/login')
 def login():
-  if request == 'GET':
-    return "show login form"
-  else:
-    return "login the user"
+  return login_test(request)
+
+def login_test(request):
+  print(request.form['username'] + request.form['password'])
+  print(request)
+  return str(request.form['username'] + request.form['password'])
 
 # New user account creation
 @app.route('/signup')
@@ -76,4 +81,4 @@ def get_time():
       
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+  app.run(debug=True)

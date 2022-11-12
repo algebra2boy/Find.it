@@ -25,16 +25,17 @@
 }
 
 .navbar-logo {
-    color: rgb(55, 35, 173);
+    color: rgb(0, 0, 0);
     justify-self: start;
     /*How far it should be away from the container on the left */
-    margin-left: 20px;
+    margin-left: 50px;
     /* put the cursor to the logo, the cursor changes to a hand pointer*/
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
     align-items: center;
+    width: 20%;
 }
 
 .mag_class {
@@ -46,8 +47,8 @@
 }
 
 img.mag_class {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 15%;
+    max-height: 15%; /*THIS IS BAD DO NOT DO THIS, PLEASE MAKE THIS SCALE WITH THE FONT IN .navbar-logo */
 }
 
 .nav-menu {

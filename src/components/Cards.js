@@ -19,14 +19,14 @@ function Cards() {
                     <CardItem 
                       src = "images/hackumass.png"
                       text = " 1. Make an account 2. Login 3."
-                      label = "Steps"
+                      label = "Hackathon"
                       path = "/services"
                     />
 
                     <CardItem 
                       src = "images/lost_and_found.png"
                       text = "Hello, World, what is going on"
-                      label = "Hackathon"
+                      label = "Steps"
                       path = "/services"
                     />
 

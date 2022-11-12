@@ -34,18 +34,24 @@ def login():
   return validateLogin(request)
 
 
+# returns true or false depending on if the 
 def validateLogin(request): 
-  # SELECT * FROM items_collection.user where username = "adampTruck";
-  loginFinder = "select * from items_collection.user where username = \"" + str(request.form['username']) + "\""; 
+  # we SELECT * FROM items_collection.user where username = "adampTruck";
+  loginFinder = "select * from items_collection.user where email = \"" + str(request.form['email']) + "\""; 
   print("the query is:" + loginFinder); 
 
   cur = mysql.new_cursor(dictionary=True)
   cur.execute(loginFinder)
-  output = cur.fetchall()
+  output = cur.fetchone()
+  print(len(output['password']))
+  print(len(request.form['password']))
 
-  print(str(output))
+  if (str(request.form['password']) == str(output['password'])):
+     return {'tokenid': 100}
 
-  return str(output)
+  return {'tokenid': -1}
+
+
 
 
 # def login_test(request):

@@ -1,0 +1,57 @@
+import React from 'react';
+import CardItem from "./CardItem";
+import "./Cards.css";
+
+function Cards() {
+  return (
+    <div className = "cards">
+        <h1>Check out who we are!</h1>
+        <div className = "cards__container">
+            <div className = "cards__wrapper">
+                <ul className = "cards__items">
+                    <CardItem 
+                      src = "images/image-1.png"
+                      text = "This website app is aimed to help people to find and search their lost items"
+                      label = "Mission"
+                      path = "/services"
+                    />
+
+                    <CardItem 
+                      src = "images/hackumass.png"
+                      text = " 1. Make an account 2. Login 3."
+                      label = "Steps"
+                      path = "/services"
+                    />
+
+                    <CardItem 
+                      src = "images/lost_and_found.png"
+                      text = "Hello, World, what is going on"
+                      label = "Hackathon"
+                      path = "/services"
+                    />
+
+                    
+                </ul>
+
+                <ul className = "cards__items">
+                    <CardItem 
+                      src = "images/image-1.png"
+                      text = "Hello, World, what is going on"
+                      label = "item1"
+                      path = "/services"
+                    />
+
+                    <CardItem 
+                      src = "images/image-1.png"
+                      text = "Hello, World, what is going on"
+                      label = "item2"
+                      path = "/services"
+                    />
+                </ul>
+            </div>
+        </div>
+    </div>
+  );
+}
+
+export default Cards;

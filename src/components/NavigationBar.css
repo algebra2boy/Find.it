@@ -12,9 +12,9 @@
     position: sticky;
     top: 0;
     z-index: 999;
-  }
-  
-  .navbar-container {
+}
+
+.navbar-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,9 +22,9 @@
     height: 80px;
     /* make sure the nav container is big enough to contain all the items*/
     max-width: 1500px;
-  }
-  
-  .navbar-logo {
+}
+
+.navbar-logo {
     color: rgb(55, 35, 173);
     justify-self: start;
     /*How far it should be away from the container on the left */
@@ -35,17 +35,22 @@
     font-size: 2rem;
     display: flex;
     align-items: center;
-  }
-  
-  .fa-typo3 {
+}
+
+.mag_class {
     /* How far should the small icon should be on the left and right*/
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     /* How big should the small icon should be */
     font-size: 1.8rem;
-  }
-  
-  .nav-menu {
+}
+
+img.mag_class {
+    max-width: 10%;
+    max-height: 10%;
+}
+
+.nav-menu {
     display: grid;
     grid-template-columns: repeat(4, auto);
     grid-gap: 12px;
@@ -54,102 +59,103 @@
     width: 60vw;
     justify-content: end;
     margin-right: 2rem;
-  }
-  
-  .nav-item {
+}
+
+.nav-item {
     height: 80px;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
     padding: 0.5rem 1rem;
     height: 100%;
-  }
-  
-  .nav-links:hover {
+}
+
+.nav-links:hover {
     border-bottom: 4px solid #fff;
     transition: all 0.2s ease-out;
-  }
-  
-  .fa-bars {
-    color: #fff;
-  }
+}
 
-  .fa-times {
-    color: #fff; 
-  }
-  
-  
-  .nav-links-mobile {
+.fa-bars {
+    color: #fff;
+}
+
+.fa-times {
+    color: #fff;
+}
+
+
+.nav-links-mobile {
     display: none;
-  }
-  
-  .menu-icon {
+}
+
+.menu-icon {
     display: none;
-  }
-  /*The following code allows for menu drop 
+}
+
+/*The following code allows for menu drop 
   down menu */
-  @media screen and (max-width: 960px) {
+@media screen and (max-width: 960px) {
     .NavbarItems {
-      position: flex;
+        position: flex;
     }
-  
+
     .nav-menu {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 100vh;
-      position: absolute;
-      top: 80px;
-      left: -100%;
-      opacity: 1;
-      transition: all 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        opacity: 1;
+        transition: all 0.5s ease;
     }
-  
+
     .nav-menu.active {
-      background: #222422;
-      left: 0;
-      opacity: 1;
-      transition: all 0.5s ease;
-      z-index: 1;
+        background: #222422;
+        left: 0;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 1;
     }
-  
+
     .nav-links {
-      text-align: center;
-      padding: 2rem;
-      width: 100%;
-      display: table;
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
     }
-  
+
     .nav-links:hover {
-      background-color: #fff;
-      color: #242424;
-      border-radius: 0;
+        background-color: #fff;
+        color: #242424;
+        border-radius: 0;
     }
-  
+
     .navbar-logo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(25%, 50%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(25%, 50%);
     }
-  
+
     .menu-icon {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(-100%, 60%);
-      font-size: .8rem;
-      cursor: pointer;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 60%);
+        font-size: .8rem;
+        cursor: pointer;
     }
-  
+
     .fa-times {
-      color: #fff;
-      font-size: 2rem;
+        color: #fff;
+        font-size: 2rem;
 
     }
 
@@ -157,30 +163,31 @@
         color: #fff;
         font-size: 2rem;
     }
-    
-    
+
+
     /* the sign up button before hovering over */
     .nav-links-mobile {
-      /* create a rectangle for the sign up button from drop down menu*/
-      display: block;
-      text-align: center;
-      margin: 2rem auto;
-      /* make the text box from a rectangle to oval if border-radius is bigger */
-      border-radius: 3px;
-      /* shorten the box */
-      width: 60%;
-      text-decoration: none;
-      font-size: 1.5rem;
-      background-color: transparent;
-      color: #fff;
-      padding: 14px 20px;
-      border: 1px solid #fff;
-      transition: all 0.3s west-out;
+        /* create a rectangle for the sign up button from drop down menu*/
+        display: block;
+        text-align: center;
+        margin: 2rem auto;
+        /* make the text box from a rectangle to oval if border-radius is bigger */
+        border-radius: 3px;
+        /* shorten the box */
+        width: 60%;
+        text-decoration: none;
+        font-size: 1.5rem;
+        background-color: transparent;
+        color: #fff;
+        padding: 14px 20px;
+        border: 1px solid #fff;
+        transition: all 0.3s west-out;
     }
+
     /* The effect after hovering over the sign up button on the drop down menu*/
     .nav-links-mobile:hover {
-      background: rgb(88, 178, 64);
-      color: #242424;
-      transition: 250ms;
-    } 
-  }
+        background: rgb(88, 178, 64);
+        color: #242424;
+        transition: 250ms;
+    }
+}

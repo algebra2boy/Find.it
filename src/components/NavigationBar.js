@@ -39,7 +39,10 @@ function NavigationBar() {
                     <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                         Find.it
                         {/* the logo */}
-                        <i className="fab fa-typo3" />
+                    <img 
+                    class = "mag_class"
+                    src = "images/magnifying_glass.png"
+                    alt = "logo"/>
                     </Link>
 
                     <div className='meun-icon' onClick={handleClick}>

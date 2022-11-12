@@ -28,7 +28,8 @@
     color: rgb(55, 35, 173);
     justify-self: start;
     /*How far it should be away from the container on the left */
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     /* put the cursor to the logo, the cursor changes to a hand pointer*/
     cursor: pointer;
     text-decoration: none;
@@ -46,8 +47,8 @@
 }
 
 img.mag_class {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 50%;
+    max-height: 50%;
 }
 
 .nav-menu {

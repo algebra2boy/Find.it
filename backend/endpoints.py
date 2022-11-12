@@ -1,19 +1,33 @@
-from flask import Flask
+from flask import Flask, request, render_template
+from flask_mysqldb import MySQL
 import datetime
   
 x = datetime.datetime.now()
-  
+
 # Initializing flask app
 app = Flask(__name__)
+
+app.config['MYSWL_HOST'] = 'localhost'
+app.config['MySQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'flask'
+
+mysql = MySQL(app)
+
+cursor = mysql.connection.cursor()
+
 # Home page  
 @app.route('/')
 def home_page():
   return "hello"
   
 # Login page
-@app.route('/login')
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
-  return "login"
+  if request == 'GET':
+    return "show login form"
+  else:
+    return "login the user"
 
 # New user account creation
 @app.route('/signup')

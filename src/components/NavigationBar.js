@@ -79,7 +79,9 @@ function NavigationBar() {
 
                     {/* sign up section */}
                     {button 
-                    && <Button buttonStyle='btn--fancy' onClick={handleSignUp}> SIGN UP
+                    && <Button buttonStyle='btn--fancy' 
+                    onClick={handleSignUp}
+                    link = "/sign-up"> SIGN UP
                     </Button>}
                 </div>
             </nav>

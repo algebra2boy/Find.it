@@ -1,10 +1,13 @@
 import {React, useState, useRef, useEffect} from 'react';
 import "../LogIn.css";
+import {useNavigate} from 'react-router-dom';
 import NavigationBar from '../NavigationBar';
 
 export function LogIn(){
     const userRef = useRef();
     const errRef = useRef();
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
@@ -19,8 +22,9 @@ export function LogIn(){
         setErrMsg('');
     }, [user, pass])
 
+    // direct to dashboard
     const handleSubmit = async (e) => {
-
+        navigate('/dashboard')
     }
 
     return (
@@ -29,7 +33,7 @@ export function LogIn(){
         <div className='login-container'>
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h4>Log in to your account</h4>
                     <input
                         type="email"

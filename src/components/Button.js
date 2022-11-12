@@ -2,9 +2,9 @@ import React from 'react';
 import './Button.css';
 import { Link } from 'react-router-dom';
 
-const STYLES = ['button--regular', 'buttom_fancy'];
+const STYLES = ['button--regular', 'button--fancy'];
 
-const SIZES = ['button--medium', 'button-large'];
+const SIZES = ['button--medium', 'button--large'];
 
 // make a class with customized properties
 export const Button = (
@@ -20,7 +20,7 @@ export const Button = (
     const checkButtonSize = SIZES.includes(SIZES) ? SIZES: SIZES[0];
 
     return (
-        <Link to='/sign-up' className = 'btn-mobile'>
+        <Link to='/sign-up' className = 'button-mobile'>
             <button 
             // customize the button
             className = {`btn ${checkButtonStyle} ${checkButtonSize}`}

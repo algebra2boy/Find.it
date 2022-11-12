@@ -1,6 +1,6 @@
 .navbar {
     /* add blending color to the nav bar */
-    background: linear-gradient(90deg, rgb(127, 119, 119) 0%, rgb(32, 66, 104) 100%);
+    background: linear-gradient(90deg, rgb(157, 155, 173) 0%, rgb(32, 66, 104) 100%);
     /* how high the nav bar should be */
     height: 80px;
     display: flex;
@@ -25,7 +25,7 @@
 }
 
 .navbar-logo {
-    color: rgb(55, 35, 173);
+    color: rgb(0, 0, 0);
     justify-self: start;
     /*How far it should be away from the container on the left */
     margin-left: 5px;
@@ -36,6 +36,7 @@
     font-size: 2rem;
     display: flex;
     align-items: center;
+    width: 100px;
 }
 
 .mag_class {
@@ -100,6 +101,10 @@ img.mag_class {
 /*The following code allows for menu drop 
   down menu */
 @media screen and (max-width: 960px) {
+    .navbar {
+        background-color: #222422;
+    }
+
     .NavbarItems {
         position: flex;
     }

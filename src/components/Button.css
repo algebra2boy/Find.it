@@ -26,7 +26,7 @@ to select, for example, var(--regular) */
     background-color: transparent;
     color: #fff;
     padding: 8px 20px;
-    border: 1px solid var(--regular);
+    border: 3px solid var(--regular);
     transition: all 0.3s east-out;
 }
 
@@ -40,6 +40,8 @@ to select, for example, var(--regular) */
 .button--large {
     padding: 12px 26px;
     font-size: 20px;
+    width: 100px;
+    height: 80px;
 }
 
 .button--medium:hover, 

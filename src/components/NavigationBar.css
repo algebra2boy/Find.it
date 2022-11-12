@@ -1,6 +1,6 @@
 .navbar {
     /* add blending color to the nav bar */
-    background: linear-gradient(90deg, rgb(127, 119, 119) 0%, rgb(32, 66, 104) 100%);
+    background: linear-gradient(90deg, rgb(157, 155, 173) 0%, rgb(32, 66, 104) 100%);
     /* how high the nav bar should be */
     height: 80px;
     display: flex;

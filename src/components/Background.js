@@ -5,18 +5,18 @@ import './Background.css';
 
 function Background() {
     return (
-        <div className='hero-container'>
+        <div className='background-container'>
             <video src="./videos/CoolSky.mp4"
                 autoPlay loop muted />
             <h1>lost your item?</h1>
             <p>But you don't know where to find it?</p>
 
-            <div className='hero-btns'>
+            <div className='background-btns'>
                 {/* Customized Button we made in the button.js */}
                 <Button
                     className='btns'
-                    buttonStyle='btn--fancy'
-                    buttonSize='btn--large'
+                    buttonStyle='button--fancy'
+                    buttonSize='button--large'
                 >
                 
                     Sign
@@ -24,8 +24,8 @@ function Background() {
 
                 <Button
                     className='btns'
-                    buttonStyle='btn--regular'
-                    buttonSize='btn-large'
+                    buttonStyle='button--fancy'
+                    buttonSize='button--large'
                 >
                     Now
                 </Button>

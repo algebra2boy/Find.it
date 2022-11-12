@@ -1,5 +1,5 @@
 import {React, useState, useRef, useEffect} from 'react';
-import "../LogIn.css"
+import "../LogIn.css";
 import NavigationBar from '../NavigationBar';
 
 export function LogIn(){
@@ -32,7 +32,7 @@ export function LogIn(){
                 <form>
                     <h4>Log in to your account</h4>
                     <input
-                        type="text"
+                        type="email"
                         id="userName"
                         ref={userRef}
                         onChange={(e) => setUser(e.target.value)}
@@ -50,11 +50,8 @@ export function LogIn(){
                         placeholder={"password"}
                         required
                     />
-                    <button className='sign-in-button'>Sign In</button>
+                    <button className='sign-button'>Log In</button>
                 </form>
-                <p>
-                    sign up
-                </p>
         </section>
         </div>
         </>

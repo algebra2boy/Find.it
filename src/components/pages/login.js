@@ -32,7 +32,7 @@ export function LogIn(){
                 <form>
                     <h4>Log in to your account</h4>
                     <input
-                        type="text"
+                        type="email"
                         id="userName"
                         ref={userRef}
                         onChange={(e) => setUser(e.target.value)}

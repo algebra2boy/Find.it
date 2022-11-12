@@ -37,6 +37,8 @@ input {
     transition: 0.3s all;
     margin-bottom: 25px;
     text-indent: 5px;
+    color: white;
+    font-size: larger;
 }
 input::placeholder {
     color: white;

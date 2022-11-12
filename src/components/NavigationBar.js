@@ -19,6 +19,9 @@ function NavigationBar() {
         setClick(false);
         navigate('/login')
     }
+    const handleSignUp = () => {
+        navigate('/sign-up');
+    }
 
     // if the window size is less 960, then drop down menu will be showed if you click upon the button
     const showButton = () => {
@@ -76,7 +79,7 @@ function NavigationBar() {
 
                     {/* sign up section */}
                     {button 
-                    && <Button buttonStyle='btn--fancy'> SIGN UP
+                    && <Button buttonStyle='btn--fancy' onClick={handleSignUp}> SIGN UP
                     </Button>}
                 </div>
             </nav>

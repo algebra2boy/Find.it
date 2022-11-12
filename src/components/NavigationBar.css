@@ -28,14 +28,15 @@
     color: rgb(0, 0, 0);
     justify-self: start;
     /*How far it should be away from the container on the left */
-    margin-left: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
     /* put the cursor to the logo, the cursor changes to a hand pointer*/
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
     align-items: center;
-    width: 20%;
+    width: 100px;
 }
 
 .mag_class {
@@ -47,8 +48,8 @@
 }
 
 img.mag_class {
-    max-width: 15%;
-    max-height: 15%; /*THIS IS BAD DO NOT DO THIS, PLEASE MAKE THIS SCALE WITH THE FONT IN .navbar-logo */
+    max-width: 50%;
+    max-height: 50%;
 }
 
 .nav-menu {

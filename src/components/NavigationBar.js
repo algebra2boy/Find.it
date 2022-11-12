@@ -39,11 +39,11 @@ function NavigationBar() {
                     <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                         Find.it
                         {/* the logo */}
+                    </Link>
                     <img 
                     class = "mag_class"
                     src = "images/magnifying_glass.png"
                     alt = "logo"/>
-                    </Link>
 
                     <div className='menu-icon' onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

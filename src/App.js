@@ -9,10 +9,8 @@ function App() {
   return (
     <>
     <Router>
-      <NavigationBar />
-      <Home/>
       <Routes>
-        <Route path = '/' exact component={Home} />
+        <Route path = '/' element={<Home />} />
         <Route path = 'login' element={<LogIn />} />
       </Routes>
     </Router>

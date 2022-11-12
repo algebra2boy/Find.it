@@ -101,6 +101,10 @@ img.mag_class {
 /*The following code allows for menu drop 
   down menu */
 @media screen and (max-width: 960px) {
+    .navbar {
+        background-color: #222422;
+    }
+
     .NavbarItems {
         position: flex;
     }

@@ -25,7 +25,7 @@ function Cards() {
 
                     <CardItem 
                       src = "images/lost_and_found.png"
-                      text = "1. Make an account 2. Login \n 3. Search for your item, or post a lost one!"
+                      text = "1. Make an account 2. Login 3. Search for your item, or post a lost one!"
                       label = "Steps"
                       path = "/"
                     />

@@ -3,8 +3,6 @@ import React, {useState, useRef, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -97,7 +95,7 @@ export function Row(props) {
             {row.name}
           </TableCell>
           <TableCell align="right">{row.date}</TableCell>
-          <TableCell align="right">{row.time}</TableCell>
+          <TableCell align="right">{row.location}</TableCell>
           <TableCell align="right">{status ? <IconButton onClick={openShowProfile}><Delete/></IconButton>
           : <IconButton onClick={openShowProfile}><Face/></IconButton>}</TableCell>
         </TableRow>
@@ -105,10 +103,6 @@ export function Row(props) {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom component="div">
-                  location
-                </Typography>
-                <div>{row.location}</div>
                 <Typography variant="h6" gutterBottom component="div">
                   description
                 </Typography>

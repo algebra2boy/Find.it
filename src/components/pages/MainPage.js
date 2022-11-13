@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Row from './Row';
 import '../MainPage.css';
+import CardItem from '../CardItem';
 
 export function MainPage() {
     const location = useLocation();
@@ -35,7 +36,7 @@ export function MainPage() {
             <TableCell />
             <TableCell>Item Name</TableCell>
             <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Time</TableCell>
+            <TableCell align="right">Location</TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
@@ -47,6 +48,10 @@ export function MainPage() {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
+    <div className="card-container">
+        <ul className='card-list'>
+        </ul>
     </div>
         </>
     )

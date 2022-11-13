@@ -10,10 +10,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Row from './Row';
 import '../MainPage.css';
-import CardItem from '../CardItem';
 
 export function MainPage() {
     const location = useLocation();
+    
 
     const rows = [
         {name:'Frozen yoghurt1', date: 159, time: 6.0, location: "home", description: "hello", },
@@ -24,7 +24,11 @@ export function MainPage() {
         {name:'Frozen yoghurt6', date: 159, time: 6.0, location: "home", description: "hello"},
         {name:'Frozen yoghurt7', date: 159, time: 6.0, location: "home", description: "hello"},
         {name:'Frozen yoghurt8', date: 159, time: 6.0, location: "home", description: "hello"},
+        {name:'Frozen yoghurt9', date: 159, time: 6.0, location: "home", description: "hello"},
+        {name:'Frozen yoghurt10', date: 159, time: 6.0, location: "home", description: "hello"},
+        {name:'Frozen yoghurt11', date: 159, time: 6.0, location: "home", description: "hello"},
       ];
+
     return (
         <>
         <NavigationBarDashboard/>
@@ -49,11 +53,7 @@ export function MainPage() {
       </Table>
     </TableContainer>
     </div>
-    <div className="card-container">
-        <ul className='card-list'>
-        </ul>
-    </div>
-        </>
+    </>
     )
 }
 

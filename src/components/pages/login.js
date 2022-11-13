@@ -1,8 +1,8 @@
 import {React, useState, useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../LogIn.css";
-import {useNavigate} from 'react-router-dom';
 import NavigationBar from '../NavigationBar';
+import axios from 'axios';
 
 export function LogIn(){
     const userRef = useRef();
@@ -11,7 +11,7 @@ export function LogIn(){
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSucess] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -25,7 +25,16 @@ export function LogIn(){
 
     // direct to dashboard
     const handleSubmit = async (e) => {
-        navigate('/dashboard', {state:{name:"hello"}})
+        axios.post('http://localhost:5000/login', {
+            password: pass,
+            email: user,
+          })
+          .then(function (response) {
+            navigate('/dashboard', {state:{response}});
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     return (

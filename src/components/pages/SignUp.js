@@ -1,10 +1,13 @@
 import {React, useState, useRef, useEffect} from 'react';
 import NavigationBar from '../NavigationBar';
 import "../LogIn.css";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUp() {
     const userRef = useRef();
     const errRef = useRef();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
@@ -12,7 +15,6 @@ export function SignUp() {
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSucess] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -22,13 +24,29 @@ export function SignUp() {
         setErrMsg('');
     }, [user, pass])
 
+    const handleSubmit = async () => {
+        axios.post('http://localhost:5000/signup', {
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            password: pass,
+            email: user,
+          })
+          .then(function (response) {
+            navigate('/dashboard', {state:{response}});
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
     return (
         <>
         <NavigationBar/>
         <div className='login-container'>
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h4>Create your account</h4>
                     <input
                         type="email"

@@ -1,5 +1,29 @@
 <h1> Find.it </h1>
-Find.it is our submission for the UMASS Fall 2022 Hackathon. Find.it a large scale solution for people who've lost their things and (unsurprisingly) want to find them. 
+Find.it is our submission for the UMASS Fall 2022 Hackathon. Find.it a scalable solution for people who've lost their things and (unsurprisingly) want to find them. 
 
-<h2> What is it and what does it do? </h2>
-It's a website that people can access and publicly post lost items for the owners to find.
+<h2> Inspiration </h2>
+  Our main motive for creating Find.it was specifically to address a pretty common issue that we saw happen around campus: people tend to lose things quite often. It was pretty sad to see students lose things and literally *post flyers on poles* to let others know to look for it. Not only that but there's even *individual* lost and found systems that each dining hall has! None of it is centralized--and that makes it horrifically difficult for people to find their things. That's why we thought that it'd be a good idea to centralize and expedite the process of finding lost things, with Find.it.
+  
+<h2> What does it does </h2>
+  Find.it is a website that uses a SQL database to store and show data that users input themselves. In particular, this data involves user data (the thing that helps us identify who they are, like their email, name, etc.), and data about their lost item (things like pictures, a brief description, the last known location, and so on). 
+  
+<h2> How we built it </h2>
+  We built the website using a combination of CSS and React. Our plan for front-end development was to make the website as interactable and intuitive as possible, since we wouldn't want people who're looking for their lost item to have trouble accessing the site or operating it. So, what we decided to do was make the whole website look like any other website that you would typically see nowadays, since familiarity and accessibility is key!
+  
+  Now as for the back-end, we used MySQL to create the server for the SQL database and from there we made a whole bunch of tables--one for the user name, which is then connected to 2 separate tables where 1 represents lost items, and the other represents found items. Then *those* are connected to another table that details information about the (technical parts) of the item itself, like the id of that item in the system, their written description, and so on. Finally, *that* table is connected to one last table that categorizes the item. Talk about a mouthful!
+  
+  Personally, as the guy who's writing this, I wish we did go to workshops to learn more about web design and the like, but there's also nothing better than discovering how to do these things by ourselves. It's the struggles that help us figure out the right path forward.
+  
+<h2> Challenges we ran into </h2>
+  A challenge that we ran into in particular was actually designing the website--the minute details like figuring out why our little magnifying glass icon started reshaping itself and flying off to the other side of the screen when we shrank the window for the website. Or, figuring out why someone completely missed how to spell the phrase "sign up" and instead just wrote "sign". Figuring out how to work well as a team was honestly one of the bigger struggles that we hate to admit. It's hard to coordinate and communicate when a majority of the team is in person, save at least one of us who was completely remote. That one guy had a bit of trouble getting everyone to answer his questions promptly. ~~That was the guy writing this description~~. So, with these difficulties, you can imagine some of the difficulties that have to do with choosing the direction for the site in terms of visual design, mechanics, and the like. 
+
+<h2> Accomplishments we're proud of </h2>
+  Honestly, we're just proud that we managed to get a functioning website with a functioning database and managed to put a huge chunk of it into motion in less than 24 hours! Obviously it didn't come easy, but the fact that *we did that* is just astonishing. 
+
+<h2> What we've learned </h2>
+  Of the people who worked on this project, I'm (the writer) am almost 100% certain that everyone learned at least one new thing while working on this project: creating endpoints for the front and back end. You know, so they can work together as a functional website and not just 2 separate entities that *seem* to look nice together? Yeah--anyway--most of us in the front end really got to know how to use React. In fact, the whole reason why half of the team chose to do front end development was because that was something that they had little to no experience doing! The front end team really wanted to understand how to use industry tools like React to help not just themselves but everyone around them in the future. As for back end, some of us (much to our chagrin), had to figure out how to use Python and Flask, and even SQL just to get the website a proper back end. To be honest, I don't think we'd have a good back end at all if it weren't for one of our team members who already had a boatload of back end experience (his name starts with an A and ends with an N, by the way), and the rest of us who were working back end learned tons, not just from figuring out how to use the back end tools, but from our neighborhood back end expert himself too!
+
+<h2> What's next for our hack </h2>
+  Our vision for this hack, if the whole team decides to make it large scale, would be to seriously start making things work. We could keep the website as is, or make it just a tad bit better (blanking on ideas at the moment, bare with me!), and potentially make an app for iOS and Android so it's even more accessible! Our initial idea was to just make it easier for people to find their things, so naturally the easier we make things, the better it'll be. The endeavor itself was already a huge one and the fact that we even did *anything* about it is a milestone in and of itself. It was definitely a learning opportunity for most of us (some of us, the writer included, didn't even know how to *make* a website). As for future hackathons, we're not too sure! We'll definitely take this experience along with us when we decide to finally go after a new hackathon!
+
+

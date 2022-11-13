@@ -1,34 +1,18 @@
-from flask import Flask, request, render_template
-# from flask_mysqldb import MySQL
+from flask import Flask, request
 from flask_mysql_connector import MySQL
-import datetime
-
-x = datetime.datetime.now()
+from decouple import config
+import random
 
 # Initializing flask app
 app = Flask(__name__)
 
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_DATABASE'] = 'items_collection'
-app.config['MYSQL_PASSWORD'] = 'heffeOfOhill'
+app.config['MYSQL_USER'] = config('USER')
+app.config['MYSQL_DATABASE'] = config('DB')
+app.config['MYSQL_PASSWORD'] = config('PASS')
 
 mysql = MySQL(app)
 
-EXAMPLE_SQL = 'select * from user'
-
-# using the new_cursor() method
-
-
-@app.route('/new_cursor')
-def new_cursor():
-    cur = mysql.new_cursor(dictionary=True)
-    cur.execute(EXAMPLE_SQL)
-    output = cur.fetchall()
-    return str(output)
-
 # Login page
-
-
 @app.post('/login')
 def login():
   return validateLogin(request)
@@ -48,33 +32,32 @@ def validateLogin(request):
   return str(output)
 
 
-# def login_test(request):
-#     print(request.form['username'] + request.form['password'])
-#     print(request)
-#     return str(request.form['username'] + request.form['password'] + "wombat")
-
-# # New user account creation
-
-
-
-@app.route('/signup')
+# New user account creation
+@app.post('/signup')
 def sign_up():
-    return 'signup'
-  
+  return register_user(request)
 
-
-
+def register_user(request):
+  auth_code = random.randrange(0, 1000000)
+  insert_query = \
+  "INSERT INTO user (user_id, first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(insert_query, (str(15), str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
+    str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return str(output)
 
 @app.route('/find-lost-item')
 def find_item():
-    return 'find lost'
+  return 'find lost item'
 
 # user found a lost item
 
 
 @app.route('/post-lost-item')
 def post_item():
-    return 'post lost'
+  return 'post lost'
 
 # user found the item they lost
 
@@ -103,19 +86,6 @@ def update_lost_item():
 @app.route('/update-found-item')
 def update_found_item():
     return 'update found item'
-
-# example for testing
-
-
-@app.route('/data')
-def get_time():
-    # Return a json for front end to view
-    return {
-        "Date": x,
-        "Framwork": "flask",
-        "Folder": "backend"
-    }
-
 
 # Running app
 if __name__ == '__main__':

@@ -8,9 +8,6 @@ x = datetime.datetime.now()
 # Initializing flask app
 app = Flask(__name__)
 
-app.config['MYSQL_USER'] = 'j1'
-app.config['MYSQL_DATABASE'] = 'items_collection'
-app.config['MYSQL_PASSWORD'] = 'sqlpass1!'
 
 mysql = MySQL(app)
 

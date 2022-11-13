@@ -57,7 +57,7 @@ def generateAuthCode(output):
 
 @app.post('/signup')
 def sign_up():
-  twillio_notify_users("8579918356","7812667922","Apple", "Lederle")
+  twillio_notify_users("3854752176","8579918356","Apple headphone", "Lederle Tower")
   return register_user(request)
 
 
@@ -162,30 +162,19 @@ def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   using twillio API to notify users
   """
 
-  message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name} at {location}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
+  # message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name} at {location}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
   message_to_found_person = f"Hello, this is Find.it platform texting! Another user who potentially found {item_name} at {location}!! Please reach out to this phone number, {phone_number2}, to see if there is a match!"
   account_sid = config("account_sid")
   auth_token = config("auth_token")
   client = Client(account_sid, auth_token)
 
-  # message_to_lost = client.messages.create(
-  # body=message_to_lost_person,
-  # from_=f'+1{phone_number2}', # found (phone number 2)
-  # to=f'+1{phone_number1}' # lost  (phone number 1)
-  # )
-
-  message_to_found = client.messages.create(
+  message = client.messages.create(
   body=message_to_found_person,
-  from_="+16178881796", # lost (phone number 1)
-  to="+18579918356" # found  (phone number 2)
+  from_=f'+1{phone_number1}',
+  to=f'+1{phone_number2}'
   )
 
-  print(message_to_lost)
-  print(message_to_found)
-
   
-
-
 # Running app
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

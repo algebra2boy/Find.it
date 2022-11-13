@@ -10,7 +10,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Row from './Row';
 import '../MainPage.css';
-import CardItem from '../CardItem';
 
 export function MainPage() {
   const location = useLocation();

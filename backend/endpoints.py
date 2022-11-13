@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify
-from flask_mysql_connector import MySQL
-from decouple import config
 import random
+
+from decouple import config
+from flask import Flask, render_template, request
+# from flask_mysqldb import MySQL
+from flask_mysql_connector import MySQL
 from twilio.rest import Client
 
 # Initializing flask app
@@ -18,7 +20,7 @@ mysql = MySQL(app)
 
 @app.post('/login')
 def login():
-    return validateLogin(request)
+    return {"authcode":"21"}
 
 
 # returns {authCode: -1} or {authCode: token} depending on if password is correct
@@ -69,43 +71,52 @@ def register_user(request):
                                str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
     output = cur.fetchall()
     mysql.connection.commit()
-    return {"Status":"200"}
+    return str(output)
 
 
 # psot that you need help finding a lost item
 @app.post('/find-lost-item')
 def find_item():
-  return found_lost_item(request)
+
+    # first verify necessary fields are there
+
+    # print(request.form.__contains__['email'])
+    print(request.form['email'])
+    print(request.form['email'])
+    return "sheesh"
 
 # user found a lost item
-def found_lost_item(request):
-  cur = mysql.new_cursor(dictionary=True)
-  q = "insert into item_identifier (item_description) values (%s)"
-  val1 = [request.form['item_description']]
-  cur.execute(q, val1)
-  mysql.connection.commit()
-  q = "select * from item_identifier order by item_id desc"
-  cur.execute(q)
-  res = cur.fetchone()
-  throw = cur.fetchall()
-  blurb = f"%{request.form['location_name']}%"
-  cur.execute(f"select * from location_coords_translator where location_name like '{blurb}'")
-  loc = cur.fetchone()
-  xcoords = loc['location_xCoords']
-  ycoords = loc['location_yCoords']
-  q = "insert into lost_item (item_id, user_id, x_coords, y_coords, item_valid_until) values (%s, %s, %s, %s, %s)"
-  val2 = (res['item_id'], request.form['user_id'], xcoords, ycoords, datetime.date.today())
-  cur.execute(q, val2)
-  mysql.connection.commit()
-  return {
-    "id": res["item_id"],
-    "validity":val2[4],
-    "uid":val2[1],
-    "location":request.form['location_name'],
-    "x_coords":val2[2],
-    "y_coords":val2[3],
-    "status": "Success"
-  }
+
+
+def post_item_db(request):
+    # q = "select * from lost_item"
+    cur = mysql.new_cursor(dictionary=True)
+    # print(len(res))
+    # if len(res) > 1:
+    #   res = res[0]
+    # else:
+    #   pass
+    # return {
+    #   "id":res['item_id'],
+    #   "picLink":res['item_picture_link'],
+    #   "validity":res['item_valid_until'],
+    #   "uid":res['user_id'],
+    #   "x_loc":res['x_coords'],
+    #   "y_loc":res['y_coords']
+    # }
+    q = "insert into lost_item (item_picture_link, item_valid_until, user_id, x_coords, y_coords) values(%s,%s,%s,%s,%s)"
+    val = (request.form['item_picture_link'], request.form['item_valid_until'],
+           request.form['user_id'], request.form['x_coords'], request.form['y_coords'])
+    cur.execute(q, val)
+    mysql.connection.commit()
+    return {
+        "link": val[0],
+        "validity": val[1],
+        "uid": val[2],
+        "x_coords": val[3],
+        "y_coords": val[4],
+        "status": "Success"
+    }
 
 
 @app.route('/post-lost-item')
@@ -124,8 +135,9 @@ def delete_lost_item_from_table(request):
     query = 'DELETE FROM lost_item WHERE item_id = ' + request.form['item_id']
     cur = mysql.new_cursor(dictionary=True)
     cur.execute(query)
+    output = cur.fetchall()
     mysql.connection.commit()
-    return {"Status":"200"}
+    return str(output)
 
 # user round owner of lost item
 
@@ -141,19 +153,7 @@ def delete_found_item_from_table(request):
     cur.execute(query)
     output = cur.fetchall()
     mysql.connection.commit()
-    return {"Status":"200"}
-
-@app.post('/dashboard')
-def dashboard():
-  return get_items(request)
-
-def get_items(request):
-  query = 'SELECT lost_item.* from lost_item INNER JOIN user ON user.user_id = lost_item.user_id WHERE user.user_id = '+request.form['user_id']+' ORDER BY item_valid_until DESC LIMIT 3'
-  cur = mysql.new_cursor(dictionary=True)
-  cur.execute(query)
-  output = cur.fetchall()
-  mysql.connection.commit()
-  return jsonify(output)
+    return str(output)
 
 def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   """
@@ -163,11 +163,12 @@ def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   using twillio API to notify users
   """
 
-  # message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name} at {location}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
+  message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name} at {location}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
   message_to_found_person = f"Hello, this is Find.it platform texting! Another user who potentially found {item_name} at {location}!! Please reach out to this phone number, {phone_number2}, to see if there is a match!"
   account_sid = config("account_sid")
   auth_token = config("auth_token")
   client = Client(account_sid, auth_token)
+  
 
   message = client.messages.create(
   body=message_to_found_person,

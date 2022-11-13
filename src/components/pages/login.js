@@ -24,16 +24,17 @@ export function LogIn(){
 
     // direct to dashboard
     const handleSubmit = async (e) => {
-        axios.post('http://localhost:5000/login', {
-            password: pass,
-            email: user,
-          })
-          .then(function (response) {
-            navigate('/dashboard', {state:{response}});
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        navigate('/dashboard');
+        // axios.post('http://localhost:5000/login', {
+        //     password: pass,
+        //     username: user,
+        //   })
+        //   .then(function (response) {
+        //     navigate('/dashboard', {state:{response}});
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
     }
 
     return (

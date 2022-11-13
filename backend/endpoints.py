@@ -1,9 +1,7 @@
-import random
-
-from decouple import config
-from flask import Flask, render_template, request
-# from flask_mysqldb import MySQL
+from flask import Flask, request
 from flask_mysql_connector import MySQL
+from decouple import config
+import random
 from twilio.rest import Client
 
 # Initializing flask app

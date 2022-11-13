@@ -75,46 +75,37 @@ def register_user(request):
 # psot that you need help finding a lost item
 @app.post('/find-lost-item')
 def find_item():
-
-    # first verify necessary fields are there
-
-    # print(request.form.__contains__['email'])
-    print(request.form['email'])
-    print(request.form['email'])
-    return "sheesh"
+  return found_lost_item(request)
 
 # user found a lost item
-
-
-def post_item_db(request):
-    # q = "select * from lost_item"
-    cur = mysql.new_cursor(dictionary=True)
-    # print(len(res))
-    # if len(res) > 1:
-    #   res = res[0]
-    # else:
-    #   pass
-    # return {
-    #   "id":res['item_id'],
-    #   "picLink":res['item_picture_link'],
-    #   "validity":res['item_valid_until'],
-    #   "uid":res['user_id'],
-    #   "x_loc":res['x_coords'],
-    #   "y_loc":res['y_coords']
-    # }
-    q = "insert into lost_item (item_picture_link, item_valid_until, user_id, x_coords, y_coords) values(%s,%s,%s,%s,%s)"
-    val = (request.form['item_picture_link'], request.form['item_valid_until'],
-           request.form['user_id'], request.form['x_coords'], request.form['y_coords'])
-    cur.execute(q, val)
-    mysql.connection.commit()
-    return {
-        "link": val[0],
-        "validity": val[1],
-        "uid": val[2],
-        "x_coords": val[3],
-        "y_coords": val[4],
-        "status": "Success"
-    }
+def found_lost_item(request):
+  cur = mysql.new_cursor(dictionary=True)
+  q = "insert into item_identifier (item_description) values (%s)"
+  val1 = [request.form['item_description']]
+  cur.execute(q, val1)
+  mysql.connection.commit()
+  q = "select * from item_identifier order by item_id desc"
+  cur.execute(q)
+  res = cur.fetchone()
+  throw = cur.fetchall()
+  blurb = f"%{request.form['location_name']}%"
+  cur.execute(f"select * from location_coords_translator where location_name like '{blurb}'")
+  loc = cur.fetchone()
+  xcoords = loc['location_xCoords']
+  ycoords = loc['location_yCoords']
+  q = "insert into lost_item (item_id, user_id, x_coords, y_coords, item_valid_until) values (%s, %s, %s, %s, %s)"
+  val2 = (res['item_id'], request.form['user_id'], xcoords, ycoords, datetime.date.today())
+  cur.execute(q, val2)
+  mysql.connection.commit()
+  return {
+    "id": res["item_id"],
+    "validity":val2[1],
+    "uid":val2[1],
+    "location":request.form['location_name'],
+    "x_coords":val2[2],
+    "y_coords":val2[3],
+    "status": "Success"
+  }
 
 
 @app.route('/post-lost-item')

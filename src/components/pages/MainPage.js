@@ -4,7 +4,8 @@ export function MainPage() {
    return ( 
     <>
     <NavigationBarDashboard/>
-    </>)
+    </>
+    )
 }
 
 export default MainPage;

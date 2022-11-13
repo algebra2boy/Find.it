@@ -13,21 +13,21 @@ function Cards() {
                       src = "images/image-1.png"
                       text = "This website app is aimed to help people to find and search their lost items"
                       label = "Mission"
-                      path = "/services"
+                      path = "/"
                     />
 
                     <CardItem 
                       src = "images/hackumass.png"
                       text = " 1. Make an account 2. Login 3."
                       label = "Hackathon"
-                      path = "/services"
+                      path = "/"
                     />
 
                     <CardItem 
                       src = "images/lost_and_found.png"
                       text = "Hello, World, what is going on"
                       label = "Steps"
-                      path = "/services"
+                      path = "/"
                     />
 
                     
@@ -38,14 +38,14 @@ function Cards() {
                       src = "images/image-1.png"
                       text = "Hello, World, what is going on"
                       label = "item1"
-                      path = "/services"
+                      path = "/"
                     />
 
                     <CardItem 
                       src = "images/image-1.png"
                       text = "Hello, World, what is going on"
                       label = "item2"
-                      path = "/services"
+                      path = "/"
                     />
                 </ul>
             </div>

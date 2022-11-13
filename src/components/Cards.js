@@ -35,15 +35,15 @@ function Cards() {
 
                 <ul className = "cards__items">
                     <CardItem //PULL THE FRESHEST DATA FROM THE DATABASE AND PLOP THE DATA HERE
-                      src = "images/image-1.png" //IF WE DONT ALREADY, CREATE A PATH TO THE FILE (AND MAKE IT IF WE HAVE TO) THEN GIVE THE PATH
-                      text = "Most recent lost item" 
+                      src = "images/ring.jpeg" //IF WE DONT ALREADY, CREATE A PATH TO THE FILE (AND MAKE IT IF WE HAVE TO) THEN GIVE THE PATH
+                      text = "A ring lost at the visitor parking at UMass on 11/13/2022" 
                       label = "item1" //GET THE NAME OF THE ITEM
                       path = "/"
                     />
 
                     <CardItem //SAME AS ABOVE ONLY WE TAKE THE OLDEST DATA
-                      src = "images/image-1.png"
-                      text = "Oldest lost item"
+                      src = "images/lost_iphone.jpeg"
+                      text = "Iphone 12 lost on the table at ILC 1st floor on 11/7/2022"
                       label = "item2"
                       path = "/"
                     />

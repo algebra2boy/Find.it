@@ -12,7 +12,6 @@ export function LogIn(){
     const [pass, setPass] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-
     const navigate = useNavigate();
 
     useEffect(() => {

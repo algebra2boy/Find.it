@@ -55,7 +55,7 @@ def sign_up():
 def register_user(request):
   auth_code = random.randrange(0, 1000000)
   insert_query = \
-  "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+  "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s)"
   cur = mysql.new_cursor(dictionary=True)
   cur.execute(insert_query, (str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
     str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
@@ -111,14 +111,30 @@ def post_item():
   return 'post lost'
 
 # user found the item they lost
-@app.route('/delete-lost-item')
+@app.post('/delete-lost-item')
 def delete_lost_item():
-    return 'delete lost item'
+  return delete_lost_item_from_table(request)
+
+def delete_lost_item_from_table(request):
+  query = 'DELETE FROM lost_item WHERE item_id = ' + request.form['item_id']
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(query)
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return str(output)
 
 # user round owner of lost item
-@app.route('/delete-found-item')
+@app.post('/delete-found-item')
 def delete_found_item():
-    return 'delete found item'
+  return delete_found_item_from_table(request)
+
+def delete_found_item_from_table(request):
+  query = 'DELETE FROM found_item WHERE item_id = ' + request.form['item_id']
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(query)
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return str(output)
 
 # user updates info of item they lost
 @app.route('/update-lost-item')

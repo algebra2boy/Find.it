@@ -1,0 +1,52 @@
+/* referring to the sign up 'button'
+global variable for other css selector to easy
+to select, for example, var(--regular) */
+:root {
+    --regular: #ffff;
+}
+
+.button {
+    padding: 8px 20px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.button--regular {
+    background-color: var(--regular);
+    /* text color of the sign up button */
+    color: #1d173d;
+    /* make the sign up button bigger  */
+    border: 1px solid var(--regular);
+}
+
+
+.button--fancy {
+    background-color: transparent;
+    color: #fff;
+    padding: 8px 20px;
+    border: 3px solid var(--regular);
+    transition: all 0.3s east-out;
+}
+
+/* Button Sizes */
+.button--medium {
+    padding: 8px 20px;
+    font-size: 20px;
+}
+
+
+.button--large {
+    padding: 12px 26px;
+    font-size: 20px;
+    width: 100px;
+    height: 80px;
+}
+
+.button--medium:hover, 
+.button--large:hover {
+    background-color: #ffff;
+    color: #242424;
+    transition: all 0.3s west-out;
+}

@@ -136,16 +136,6 @@ def delete_found_item_from_table(request):
   mysql.connection.commit()
   return str(output)
 
-# user updates info of item they lost
-@app.route('/update-lost-item')
-def update_lost_item():
-    return 'update item lost'
-
-# user updates info of item they found
-@app.route('/update-found-item')
-def update_found_item():
-    return 'update found item'
-
 # Running app
 if __name__ == '__main__':
     app.run(debug=False)

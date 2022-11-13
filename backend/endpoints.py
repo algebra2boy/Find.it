@@ -69,7 +69,7 @@ def register_user(request):
                                str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
     output = cur.fetchall()
     mysql.connection.commit()
-    return str(output)
+    return {"Status":"200"}
 
 
 # psot that you need help finding a lost item
@@ -133,9 +133,8 @@ def delete_lost_item_from_table(request):
     query = 'DELETE FROM lost_item WHERE item_id = ' + request.form['item_id']
     cur = mysql.new_cursor(dictionary=True)
     cur.execute(query)
-    output = cur.fetchall()
     mysql.connection.commit()
-    return str(output)
+    return {"Status":"200"}
 
 # user round owner of lost item
 
@@ -151,7 +150,19 @@ def delete_found_item_from_table(request):
     cur.execute(query)
     output = cur.fetchall()
     mysql.connection.commit()
-    return str(output)
+    return {"Status":"200"}
+
+@app.post('/dashboard')
+def dashboard():
+  return get_items(request)
+
+def get_items(request):
+  query = 'SELECT lost_item.* from lost_item INNER JOIN user ON user.user_id = lost_item.user_id WHERE user.user_id = '+request.form['user_id']+' ORDER BY item_valid_until DESC LIMIT 3'
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(query)
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return output
 
 def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   """

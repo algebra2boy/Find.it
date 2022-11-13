@@ -6,13 +6,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-<<<<<<< HEAD
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-=======
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
->>>>>>> main
     "@mui/material": "^5.10.13",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

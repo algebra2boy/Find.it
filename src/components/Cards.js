@@ -34,17 +34,10 @@ function Cards() {
                 </ul>
 
                 <ul className = "cards__items">
-<<<<<<< HEAD
-                    <CardItem 
-                      src = "images/image-1.png"
-                      text = "Hello, World, what is going on"
-                      label = "item1"
-=======
                     <CardItem //PULL THE FRESHEST DATA FROM THE DATABASE AND PLOP THE DATA HERE
                       src = "images/image-1.png" //IF WE DONT ALREADY, CREATE A PATH TO THE FILE (AND MAKE IT IF WE HAVE TO) THEN GIVE THE PATH
                       text = "Most recent lost item" 
                       label = "item1" //GET THE NAME OF THE ITEM
->>>>>>> main
                       path = "/"
                     />
 

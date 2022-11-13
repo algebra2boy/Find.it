@@ -1,7 +1,6 @@
 import {React, useState, useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../LogIn.css";
-import {useNavigate} from 'react-router-dom';
 import NavigationBar from '../NavigationBar';
 
 export function LogIn(){
@@ -11,6 +10,7 @@ export function LogIn(){
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    // eslint-disable-next-line
     const [success, setSucess] = useState(false);
 
     const navigate = useNavigate();

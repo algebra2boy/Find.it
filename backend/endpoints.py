@@ -9,13 +9,9 @@ from twilio.rest import Client
 # Initializing flask app
 app = Flask(__name__)
 
-# app.config['MYSQL_USER'] = config('USER')
-# app.config['MYSQL_DATABASE'] = config('DB')
-# app.config['MYSQL_PASSWORD'] = config('PASS')
-
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_DATABASE'] = 'items_collection'
-app.config['MYSQL_PASSWORD'] = 'heffeOfOhill'
+app.config['MYSQL_USER'] = config('USER')
+app.config['MYSQL_DATABASE'] = config('DB')
+app.config['MYSQL_PASSWORD'] = config('PASS')
 
 mysql = MySQL(app)
 

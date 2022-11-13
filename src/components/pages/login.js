@@ -1,4 +1,5 @@
 import {React, useState, useRef, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../LogIn.css";
 import NavigationBar from '../NavigationBar';
 
@@ -11,6 +12,8 @@ export function LogIn(){
     const [errMsg, setErrMsg] = useState('');
     const [success, setSucess] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -20,7 +23,7 @@ export function LogIn(){
     }, [user, pass])
 
     const handleSubmit = async (e) => {
-
+        navigate('/dashboard', {state:{name:"hello"}})
     }
 
     return (
@@ -29,7 +32,7 @@ export function LogIn(){
         <div className='login-container'>
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h4>Log in to your account</h4>
                     <input
                         type="email"

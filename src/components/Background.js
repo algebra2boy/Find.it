@@ -17,6 +17,7 @@ function Background() {
                     className='btns'
                     buttonStyle='button--fancy'
                     buttonSize='button--large'
+                    link = "./sign-up"
                 >
                 
                     Sign up here!

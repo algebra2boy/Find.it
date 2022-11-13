@@ -1,5 +1,6 @@
-from flask import Flask, request
-from flask_mysqldb import MySQL
+import random
+from flask import Flask, request, render_template
+# from flask_mysqldb import MySQL
 from flask_mysql_connector import MySQL
 from decouple import config
 import random
@@ -19,46 +20,47 @@ def login():
   return validateLogin(request)
 
 
-# returns true or false depending on if the 
+# returns {authCode: -1} or {authCode: token} depending on if password is correct 
+# state: DONE. Verify for bugs
 def validateLogin(request): 
   # we SELECT * FROM items_collection.user where username = "adampTruck";
+
   loginFinder = "select * from items_collection.user where email = \"" + str(request.form['email']) + "\""; 
   print("the query is:" + loginFinder); 
 
+  # execute the sql statement, and extract password
   cur = mysql.new_cursor(dictionary=True)
   cur.execute(loginFinder)
   output = cur.fetchone()
-  
-  print(len(output['password']))
-  print(len(request.form['password']))
 
-  if (str(request.form['password']) == str(output['password'])):
-     return {'tokenid': 100}
+  if output is None: 
+    return {'authCode': -1}
 
-  return {'tokenid': -1}
+  print(type(request.form['password']))
+  print(type(output['password']))
+  #compare it to actual password. If same, generate authCode
+  if ((request.form['password']) == (output['password'])):
+     return generateAuthCode(output)
+
+  #if not the same, return -1 
+  return {'authCode': -1}
+
+def generateAuthCode(output): 
+  return {'authcode': output['auth_code']}
 
 
 
 
-# New user account creation
-@app.post('/signup')
-def sign_up():
-  return register_user(request)
-
-def register_user(request):
-  auth_code = random.randrange(0, 1000000)
-  insert_query = \
-  "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-  cur = mysql.new_cursor(dictionary=True)
-  cur.execute(insert_query, (str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
-    str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
-  output = cur.fetchall()
-  mysql.connection.commit()
-  return str(output)
-
+# psot that you need help finding a lost item
 @app.post('/find-lost-item')
 def find_item():
-    return 'find lost'
+
+  # first verify necessary fields are there 
+
+  # print(request.form.__contains__['email'])
+  print(request.form['email'])
+  print(request.form['email'])
+  return "sheesh"
 
 # user found a lost item
 def post_item_db(request):
@@ -126,4 +128,4 @@ def update_found_item():
 
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

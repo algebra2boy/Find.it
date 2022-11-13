@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_mysql_connector import MySQL
 from decouple import config
 import random
@@ -153,7 +153,7 @@ def get_items(request):
   cur.execute(query)
   output = cur.fetchall()
   mysql.connection.commit()
-  return output
+  return jsonify(output)
 
 def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   """

@@ -37,7 +37,7 @@ export function SignUp() {
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                         autoComplete="off"
-                        placeholder={"email"}
+                        placeholder={"Email"}
                         required
                     />
                     <input
@@ -47,7 +47,7 @@ export function SignUp() {
                         onChange={(e) => setPass(e.target.value)}
                         value={pass}
                         autoComplete="off"
-                        placeholder={"password"}
+                        placeholder={"Password"}
                         required
                     />
                     <input
@@ -57,7 +57,7 @@ export function SignUp() {
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                         autoComplete="off"
-                        placeholder={"first name"}
+                        placeholder={"First Name"}
                         required
                     />
                     <input
@@ -67,7 +67,7 @@ export function SignUp() {
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                         autoComplete="off"
-                        placeholder={"last name"}
+                        placeholder={"Last Name"}
                         required
                     />
                     <input
@@ -77,7 +77,7 @@ export function SignUp() {
                         onChange={(e) => setPhone(e.target.value)}
                         value={phone}
                         autoComplete="off"
-                        placeholder={"phone number"}
+                        placeholder={"Phone Number"}
                         required
                     />
                 <button className='sign-button'>Sign Up</button>

@@ -8,8 +8,8 @@ function Background() {
         <div className='background-container'>
             <video src="./videos/CoolSky.mp4"
                 autoPlay loop muted />
-            <h1>lost your item?</h1>
-            <p>But you don't know where to find it?</p>
+            <h1>Lost something?</h1>
+            <p>and can't find it?</p>
 
             <div className='background-btns'>
                 {/* Customized Button we made in the button.js */}
@@ -19,16 +19,16 @@ function Background() {
                     buttonSize='button--large'
                 >
                 
-                    Sign
+                    Sign up here!
                 </Button>
-
+{/* 
                 <Button
                     className='btns'
                     buttonStyle='button--fancy'
                     buttonSize='button--large'
                 >
                     Now
-                </Button>
+                </Button> */}
 
             </div>
 

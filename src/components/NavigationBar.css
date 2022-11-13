@@ -1,6 +1,6 @@
 .navbar {
     /* add blending color to the nav bar */
-    background: linear-gradient(90deg, rgb(157, 155, 173) 0%, rgb(32, 66, 104) 100%);
+    background: linear-gradient(90deg, rgb(255, 191, 96) 0%, rgb(242, 195, 16) 100%);
     /* how high the nav bar should be */
     height: 80px;
     display: flex;
@@ -131,6 +131,7 @@ img.mag_class {
 
     .nav-links {
         text-align: center;
+        color: rgb(0,0,0);
         padding: 2rem;
         width: 100%;
         display: table;

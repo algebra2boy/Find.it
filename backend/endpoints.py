@@ -1,16 +1,17 @@
-from flask import Flask, request, render_template
+import datetime
+
+from flask import Flask, render_template, request
 # from flask_mysqldb import MySQL
 from flask_mysql_connector import MySQL
-import datetime
 
 x = datetime.datetime.now()
 
 # Initializing flask app
 app = Flask(__name__)
 
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_USER'] = 'j1'
 app.config['MYSQL_DATABASE'] = 'items_collection'
-app.config['MYSQL_PASSWORD'] = 'heffeOfOhill'
+app.config['MYSQL_PASSWORD'] = 'sqlpass1!'
 
 mysql = MySQL(app)
 
@@ -43,6 +44,7 @@ def validateLogin(request):
   cur = mysql.new_cursor(dictionary=True)
   cur.execute(loginFinder)
   output = cur.fetchone()
+  
   print(len(output['password']))
   print(len(request.form['password']))
 
@@ -71,11 +73,40 @@ def sign_up():
 
 
 
-@app.route('/find-lost-item')
+@app.post('/find-lost-item')
 def find_item():
-    return 'find lost'
-
+  return post_item_db(request)
+  
 # user found a lost item
+def post_item_db(request):
+  # q = "select * from lost_item"
+  cur = mysql.new_cursor(dictionary=True)
+  # print(len(res))
+  # if len(res) > 1:
+  #   res = res[0]
+  # else:
+  #   pass
+  # return {
+  #   "id":res['item_id'],
+  #   "picLink":res['item_picture_link'],
+  #   "validity":res['item_valid_until'],
+  #   "uid":res['user_id'],
+  #   "x_loc":res['x_coords'],
+  #   "y_loc":res['y_coords']
+  # }
+  q = "insert into lost_item (item_picture_link, item_valid_until, user_id, x_coords, y_coords) values(%s,%s,%s,%s,%s)"
+  val = (request.form['item_picture_link'],request.form['item_valid_until'],request.form['user_id'],request.form['x_coords'],request.form['y_coords'])
+  cur.execute(q, val)
+  mysql.connection.commit()
+  return {
+    "link":val[0],
+    "validity":val[1],
+    "uid":val[2],
+    "x_coords":val[3],
+    "y_coords":val[4],
+    "status": "Success"
+  }
+
 
 
 @app.route('/post-lost-item')

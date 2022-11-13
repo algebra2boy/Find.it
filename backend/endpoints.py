@@ -1,5 +1,4 @@
-from flask import Flask, request, render_template
-# from flask_mysqldb import MySQL
+from flask import Flask, request
 from flask_mysql_connector import MySQL
 from decouple import config
 import random

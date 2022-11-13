@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 from flask_mysql_connector import MySQL
 import datetime
   

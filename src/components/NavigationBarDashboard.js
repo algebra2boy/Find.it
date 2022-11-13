@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import './NavigationBar.css';
 
-
-function NavigationBar() {
+export function NavigationBarDashboard() {
     // setClick is the name of the function 
     // click is the true and false value, showing if it clicked
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
     
-    //navigator to reroute pages
-    const navigate = useNavigate();
-
-
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => {
         setClick(false);
@@ -70,17 +65,11 @@ function NavigationBar() {
                             </Link>
                         </li>
 
-                        <li className='nav-item'>
-                            <Link className='nav-links' onClick={closeMobileMenu}>
-                                Create 
-                            </Link>
-                        </li>
-
                     </ul>
 
                     {/* sign up section */}
                     {button 
-                    && <Button buttonStyle='btn--regular' onClick={handleSignUp}> Create
+                    && <Button buttonStyle='btn--regular'> Create
                     </Button>}
                 </div>
             </nav>
@@ -88,4 +77,4 @@ function NavigationBar() {
     );
 }
 
-export default NavigationBar;
+export default NavigationBarDashboard;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import NavigationBar from '../NavigationBar';
+import NavigationBarDashboard from '../NavigationBarDashboard'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,7 +27,7 @@ export function MainPage() {
       ];
     return (
         <>
-        <NavigationBar />
+        <NavigationBarDashboard/>
     <div className="table-container" style={{border: '1px solid black'}}>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -56,3 +56,5 @@ export function MainPage() {
         </>
     )
 }
+
+export default MainPage;

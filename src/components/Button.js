@@ -12,7 +12,8 @@ export const Button = (
         type,
         onClick,
         buttonStyle,
-        buttonSize
+        buttonSize, 
+        link
     }) => {
     // check if the "STYLES array" has the passed button style, if not, then default to the button-regular
     const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
@@ -20,7 +21,7 @@ export const Button = (
     const checkButtonSize = SIZES.includes(SIZES) ? SIZES: SIZES[0];
 
     return (
-        <Link to='/sign-up' className = 'button-mobile'>
+        <Link to={link} className = 'button-mobile'>
             <button 
             // customize the button
             className = {`btn ${checkButtonStyle} ${checkButtonSize}`}

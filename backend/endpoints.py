@@ -46,9 +46,9 @@ def sign_up():
 def register_user(request):
   auth_code = random.randrange(0, 1000000)
   insert_query = \
-  "INSERT INTO user (user_id, first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+  "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
   cur = mysql.new_cursor(dictionary=True)
-  cur.execute(insert_query, (str(15), str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
+  cur.execute(insert_query, (str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
     str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
   output = cur.fetchall()
   mysql.connection.commit()

@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     object-fit: contain;
-    background-color: #404258;
+    background-color: #30291b;
 }
 section {
     width: 100%;
@@ -47,7 +47,7 @@ input::placeholder {
     font-family: 'Times New Roman', Times, serif;
 }
 input:hover {
-    background-color: rgb(26, 33, 50);
+    background-color: rgb(101, 86, 10);
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
   }
 

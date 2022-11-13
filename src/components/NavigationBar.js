@@ -4,7 +4,7 @@ import { Button } from './Button';
 import './NavigationBar.css';
 
 
-function NavigationBar() {
+function NavigationBar(props) {
     // setClick is the name of the function 
     // click is the true and false value, showing if it clicked
     const [click, setClick] = useState(false);

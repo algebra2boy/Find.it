@@ -1,4 +1,5 @@
 import {React, useState, useRef, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../LogIn.css";
 import {useNavigate} from 'react-router-dom';
 import NavigationBar from '../NavigationBar';
@@ -7,12 +8,12 @@ export function LogIn(){
     const userRef = useRef();
     const errRef = useRef();
 
-    const navigate = useNavigate();
-
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSucess] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         userRef.current.focus();
@@ -24,7 +25,7 @@ export function LogIn(){
 
     // direct to dashboard
     const handleSubmit = async (e) => {
-        navigate('/dashboard')
+        navigate('/dashboard', {state:{name:"hello"}})
     }
 
     return (

@@ -99,7 +99,7 @@ def found_lost_item(request):
   mysql.connection.commit()
   return {
     "id": res["item_id"],
-    "validity":val2[1],
+    "validity":val2[4],
     "uid":val2[1],
     "location":request.form['location_name'],
     "x_coords":val2[2],

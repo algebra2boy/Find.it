@@ -1,4 +1,3 @@
-import random
 from flask import Flask, request, render_template
 # from flask_mysqldb import MySQL
 from flask_mysql_connector import MySQL
@@ -49,8 +48,6 @@ def generateAuthCode(output):
   return {'authcode': output['auth_code']}
 
 
-
-
 # psot that you need help finding a lost item
 @app.post('/find-lost-item')
 def find_item():
@@ -93,35 +90,26 @@ def post_item_db(request):
   }
 
 
-
 @app.route('/post-lost-item')
 def post_item():
   return 'post lost'
 
 # user found the item they lost
-
-
 @app.route('/delete-lost-item')
 def delete_lost_item():
     return 'delete lost item'
 
 # user round owner of lost item
-
-
 @app.route('/delete-found-item')
 def delete_found_item():
     return 'delete found item'
 
 # user updates info of item they lost
-
-
 @app.route('/update-lost-item')
 def update_lost_item():
     return 'update item lost'
 
 # user updates info of item they found
-
-
 @app.route('/update-found-item')
 def update_found_item():
     return 'update found item'

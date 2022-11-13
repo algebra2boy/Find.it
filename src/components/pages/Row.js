@@ -1,21 +1,17 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Delete from '@mui/icons-material/Delete';
-import Update from '@mui/icons-material/Update';
 import Face from '@mui/icons-material/Face';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Button from 'react-bootstrap/Button';
 import Modal from '@mui/material/Modal'
 import Dialog from '@mui/material/Dialog'
-import TextField from '@mui/material/TextField'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
@@ -24,11 +20,13 @@ import '../Row.css'
 export function Row(props) {
     const { row, status } = props;
     const [open, setOpen] = React.useState(false);
+    const [deleted, setDeleted] = useState(true);
     const [showProfile, setShowProfile] = useState(false);
 
 
     const updateHandler = () => {
-        console.log()
+        setDeleted(false);
+        setShowProfile(false);
     }
 
     const openShowProfile = () => setShowProfile(true);
@@ -80,6 +78,7 @@ export function Row(props) {
         </DialogActions>
         </DialogContent>
       </Dialog>}
+      {deleted ? 
       <React.Fragment>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
           <TableCell>
@@ -104,14 +103,14 @@ export function Row(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  description
+                  Description
                 </Typography>
                 <div>{row.description}</div>
               </Box>
             </Collapse>
           </TableCell>
         </TableRow>
-      </React.Fragment>
+      </React.Fragment> : <></>}
       </>
     );
   }

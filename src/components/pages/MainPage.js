@@ -10,19 +10,20 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Row from './Row';
 import '../MainPage.css';
+import CardItem from '../CardItem';
 
 export function MainPage() {
   const location = useLocation();
 
   const rows = [
-    { name: 'Frozen yoghurt1', date: 159, time: 6.0, location: "home", description: "hello", },
-    { name: 'Frozen yoghurt2', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt3', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt4', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt5', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt6', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt7', date: 159, time: 6.0, location: "home", description: "hello" },
-    { name: 'Frozen yoghurt8', date: 159, time: 6.0, location: "home", description: "hello" },
+    { name: 'Iphone', date: '04-22-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu' },
+    { name: 'Mac', date: '04-16-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
+    { name: 'Airpods', date: '04-27-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
+    { name: 'Ipad', date: '04-10-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
+    { name: 'water bottle', date: '04-12-2022', location: "home", description: "hello" , firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'  },
+    { name: 'wallet', date: '04-19-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
+    { name: 'backpack', date: '04-23-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
+    { name: 'glasses', date: '04-24-2022', location: "home", description: "hello", firstName: 'Anan', phone: '27162327162', email: 'Anan@umass.edu'   },
   ];
   return (
     <>
@@ -42,7 +43,7 @@ export function MainPage() {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <Row key={row.name} row={row} status={true} />
+                <Row key={row.name} row={row} status={false} />
               ))}
             </TableBody>
           </Table>

@@ -47,6 +47,22 @@ def validateLogin(request):
 def generateAuthCode(output): 
   return {'authcode': output['auth_code']}
 
+# New user account creation
+@app.post('/signup')
+def sign_up():
+  return register_user(request)
+
+def register_user(request):
+  auth_code = random.randrange(0, 1000000)
+  insert_query = \
+  "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(insert_query, (str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),\
+    str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return str(output)
+
 
 # psot that you need help finding a lost item
 @app.post('/find-lost-item')

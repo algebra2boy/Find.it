@@ -42,7 +42,7 @@ export function LogIn(){
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                         autoComplete="off"
-                        placeholder={"username"}
+                        placeholder={"Username"}
                         required
                     />
                     <input
@@ -51,7 +51,7 @@ export function LogIn(){
                         ref={userRef}
                         onChange={(e) => setPass(e.target.value)}
                         value={pass}
-                        placeholder={"password"}
+                        placeholder={"Password"}
                         required
                     />
                     <button className='sign-button'>Log In</button>

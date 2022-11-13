@@ -1,11 +1,10 @@
 from datetime import datetime
 from decimal import Decimal
-import random
-from flask import Flask, request, render_template
-# from flask_mysqldb import MySQL
+from flask import Flask, request, jsonify
 from flask_mysql_connector import MySQL
 from decouple import config
 import random
+from twilio.rest import Client
 
 # Initializing flask app
 app = Flask(__name__)
@@ -21,80 +20,96 @@ app.config['MYSQL_PASSWORD'] = 'heffeOfOhill'
 mysql = MySQL(app)
 
 # Login page
+
+
 @app.post('/login')
 def login():
-  return validateLogin(request)
+    return validateLogin(request)
 
 
-# returns {authCode: -1} or {authCode: token} depending on if password is correct 
+# returns {authCode: -1} or {authCode: token} depending on if password is correct
 # state: DONE. Verify for bugs
-def validateLogin(request): 
-  # we SELECT * FROM items_collection.user where username = "adampTruck";
+def validateLogin(request):
+    # we SELECT * FROM items_collection.user where username = "adampTruck";
 
-  loginFinder = "select * from items_collection.user where email = \"" + str(request.form['email']) + "\""; 
-  print("the query is:" + loginFinder); 
+    loginFinder = "select * from items_collection.user where email = \"" + \
+        str(request.form['email']) + "\""
+    print("the query is:" + loginFinder)
 
-  # execute the sql statement, and extract password
-  cur = mysql.new_cursor(dictionary=True)
-  cur.execute(loginFinder)
-  output = cur.fetchone()
+    # execute the sql statement, and extract password
+    cur = mysql.new_cursor(dictionary=True)
+    cur.execute(loginFinder)
+    output = cur.fetchone()
 
-  if output is None: 
+    if output is None:
+        return {'authCode': -1}
+
+    print(type(request.form['password']))
+    print(type(output['password']))
+    # compare it to actual password. If same, generate authCode
+    if ((request.form['password']) == (output['password'])):
+        return generateAuthCode(output)
+
+    # if not the same, return -1
     return {'authCode': -1}
 
-  print(type(request.form['password']))
-  print(type(output['password']))
-  #compare it to actual password. If same, generate authCode
-  if ((request.form['password']) == (output['password'])):
-     return generateAuthCode(output)
 
-  #if not the same, return -1 
-  return {'authCode': -1}
+def generateAuthCode(output):
+    return {'authcode': output['auth_code']}
 
-def generateAuthCode(output): 
-  return {'authcode': output['auth_code']}
+# New user account creation
 
 
+@app.post('/signup')
+def sign_up():
+  twillio_notify_users("3854752176","8579918356","Apple headphone", "Lederle Tower")
+  return register_user(request)
+
+
+def register_user(request):
+    auth_code = random.randrange(0, 1000000)
+    insert_query = \
+        "INSERT INTO user (first_name, last_name, phone_number, auth_code, email, username, password) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    cur = mysql.new_cursor(dictionary=True)
+    cur.execute(insert_query, (str(request.form['first_name']), str(request.form['last_name']), str(request.form['phone_number']),
+                               str(auth_code), str(request.form['email']), str(request.form['username']), str(request.form['password'])))
+    output = cur.fetchall()
+    mysql.connection.commit()
+    return {"Status":"200"}
 
 
 # psot that you need help finding a lost item
 @app.post('/find-lost-item')
 def find_item():
-
-  # first verify necessary fields are there 
-
-  # print(request.form.__contains__['email'])
-  print(request.form['email'])
-  print(request.form['email'])
-  return "sheesh"
+  return found_lost_item(request)
 
 # user found a lost item
-def post_item_db(request):
-  # q = "select * from lost_item"
+def found_lost_item(request):
   cur = mysql.new_cursor(dictionary=True)
-  # print(len(res))
-  # if len(res) > 1:
-  #   res = res[0]
-  # else:
-  #   pass
-  # return {
-  #   "id":res['item_id'],
-  #   "picLink":res['item_picture_link'],
-  #   "validity":res['item_valid_until'],
-  #   "uid":res['user_id'],
-  #   "x_loc":res['x_coords'],
-  #   "y_loc":res['y_coords']
-  # }
-  q = "insert into lost_item (item_picture_link, item_valid_until, user_id, x_coords, y_coords) values(%s,%s,%s,%s,%s)"
-  val = (request.form['item_picture_link'],request.form['item_valid_until'],request.form['user_id'],request.form['x_coords'],request.form['y_coords'])
-  cur.execute(q, val)
+  q = "insert into item_identifier (item_description) values (%s)"
+  val1 = [request.form['item_description']]
+  cur.execute(q, val1)
+  mysql.connection.commit()
+  q = "select * from item_identifier order by item_id desc"
+  cur.execute(q)
+  res = cur.fetchone()
+  throw = cur.fetchall()
+  blurb = f"%{request.form['location_name']}%"
+  cur.execute(f"select * from location_coords_translator where location_name like '{blurb}'")
+  loc = cur.fetchone()
+  xcoords = loc['location_xCoords']
+  ycoords = loc['location_yCoords']
+  q = "insert into lost_item (item_id, user_id, x_coords, y_coords, item_valid_until) values (%s, %s, %s, %s, %s)"
+  val2 = (res['item_id'], request.form['user_id'], xcoords, ycoords, datetime.date.today())
+  cur.execute(q, val2)
   mysql.connection.commit()
   return {
-    "link":val[0],
-    "validity":val[1],
-    "uid":val[2],
-    "x_coords":val[3],
-    "y_coords":val[4],
+    "id": res["item_id"],
+    "validity":val2[4],
+    "uid":val2[1],
+    "location":request.form['location_name'],
+    "x_coords":val2[2],
+    "y_coords":val2[3],
     "status": "Success"
   }
 
@@ -140,8 +155,6 @@ def post_item():
 
   find_related_lost_items(11, 20)
   return {"hello":"eric"}
-
-  #0.0005
 
 # user found the item they lost
 def twillio_notify_users(phone_number1, phone_number2, item_name):
@@ -208,31 +221,67 @@ def find_related_lost_items(found_item_id, posterId):
 
 
 
-@app.route('/delete-lost-item')
+@app.post('/delete-lost-item')
 def delete_lost_item():
-    return 'delete lost item'
+    return delete_lost_item_from_table(request)
+
+
+def delete_lost_item_from_table(request):
+    query = 'DELETE FROM lost_item WHERE item_id = ' + request.form['item_id']
+    cur = mysql.new_cursor(dictionary=True)
+    cur.execute(query)
+    mysql.connection.commit()
+    return {"Status":"200"}
 
 # user round owner of lost item
 
-
-@app.route('/delete-found-item')
+@app.post('/delete-found-item')
 def delete_found_item():
-    return 'delete found item'
+    return delete_found_item_from_table(request)
 
-# user updates info of item they lost
 
-#anan
-@app.route('/update-lost-item')
-def update_lost_item():
-    return 'update item lost'
 
-# user updates info of item they found
+def delete_found_item_from_table(request):
+    query = 'DELETE FROM found_item WHERE item_id = ' + request.form['item_id']
+    cur = mysql.new_cursor(dictionary=True)
+    cur.execute(query)
+    output = cur.fetchall()
+    mysql.connection.commit()
+    return {"Status":"200"}
 
-#anan
-@app.route('/update-found-item')
-def update_found_item():
-    return 'update found item'
+@app.post('/dashboard')
+def dashboard():
+  return get_items(request)
 
+def get_items(request):
+  query = 'SELECT lost_item.* from lost_item INNER JOIN user ON user.user_id = lost_item.user_id WHERE user.user_id = '+request.form['user_id']+' ORDER BY item_valid_until DESC LIMIT 3'
+  cur = mysql.new_cursor(dictionary=True)
+  cur.execute(query)
+  output = cur.fetchall()
+  mysql.connection.commit()
+  return jsonify(output)
+
+def twillio_notify_users(phone_number1, phone_number2, item_name):
+  """
+  phone number 1 is the person who lost the item
+  phone number 2 is the person who found the item
+  to notify the users if there is a match in the system for the post item and found item
+  using twillio API to notify users
+  """
+
+  # message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
+  message_to_found_person = f"Hello, this is Find.it platform texting! Another user who potentially found {item_name}!! Please reach out to this phone number, {phone_number2}, to see if there is a match!"
+  account_sid = config("account_sid")
+  auth_token = config("auth_token")
+  client = Client(account_sid, auth_token)
+
+  message = client.messages.create(
+  body=message_to_found_person,
+  from_=f'+1{phone_number1}',
+  to=f'+1{phone_number2}'
+  )
+
+  
 # Running app
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

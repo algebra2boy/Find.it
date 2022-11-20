@@ -1,9 +1,11 @@
+from datetime import datetime
+from decimal import Decimal
+from flask import Flask, request, jsonify
+from flask_mysql_connector import MySQL
+from decouple import config
 import random
 
-from decouple import config
-from flask import Flask, render_template, request
 # from flask_mysqldb import MySQL
-from flask_mysql_connector import MySQL
 from twilio.rest import Client
 
 # Initializing flask app
@@ -119,11 +121,111 @@ def post_item_db(request):
     }
 
 
-@app.route('/post-lost-item')
+ # anan: post lost item -> goes to found lost item 
+@app.post('/post-lost-item')
 def post_item():
-    return 'post lost'
+  # cur = mysql.new_cursor(dictionary=True)
+
+  # # get the number to allocate 
+  # print("hello")
+  # findHighest = "select * from items_collection.item_identifier ORDER by item_id desc;"
+  # cur.execute(findHighest)
+  # nextIndex = len(cur.fetchall())+1 # important 
+  
+  # # find the coords of an item 
+  # print(str(request.form['item_location']))
+  # locQ = "select * from items_collection.location_coords_translator where location_name = \"" + str(request.form['item_location']) + "\""
+  # cur.execute(locQ)
+  # coordsData = cur.fetchone()
+  # xCoord = coordsData['location_xCoords']
+  # yCoord = coordsData['location_yCoords'] #important 
+
+  # userId = request.form['user_id']
+
+  # #date of an object
+  # dateLost = datetime.strptime(request.form['item_date'], '%m-%d-%Y').date()
+
+  # # post the found item 
+  # q = "insert into items_collection.found_item (item_id, user_id, x_coord, y_coord, item_valid_until) values(%s, %s, %s, %s, %s)"
+  # qEntries = (nextIndex, userId, xCoord, yCoord, dateLost)
+  # cur.execute(q, qEntries)
+  # mysql.connection.commit()
+
+  # # create in generic using description and all that 
+  # q2 = "insert into items_collection.item_identifier (item_id, item_description, item_name) values(%s, %s, %s)"
+  # q2Entries = (nextIndex, request.form["item_description"], request.form["item_name"])
+  # cur.execute(q2, q2Entries)
+  # mysql.connection.commit()
+
+  # #find all related lost items 
+  # find_related_lost_items(nextIndex, userId)
+
+  find_related_lost_items(11, 20)
+  return {"hello":"eric"}
 
 # user found the item they lost
+def twillio_notify_users(phone_number1, phone_number2, item_name):
+  print("test")
+
+
+#todo: get rleated lost items 
+def find_related_lost_items(found_item_id, posterId): 
+    cur = mysql.new_cursor(dictionary=True)
+    qFindWords = "select * from items_collection.item_identifier where item_id = \"" + str(found_item_id) + "\" limit 1"
+    h1 = cur.execute(qFindWords)
+    userOne = cur.fetchone()
+    useless = cur.fetchall()
+    cur_found_item_words = str.split(userOne['item_name'])
+
+    locQ = "select * from items_collection.location_coords_translator where location_name = \"" + str(request.form['item_location']) + "\""
+    cur.execute(locQ)
+    coordsData = cur.fetchone()
+    useless = cur.fetchall()
+    xCoord = coordsData['location_xCoords']
+    yCoord = coordsData['location_yCoords'] #important 
+    offset = Decimal("0.0005")
+    print(str(xCoord+offset))
+
+    qItemFind = "select * from items_collection.lost_item as l inner join items_collection.item_identifier as g on l.item_id = g.item_id and l.x_coords >= " + str(xCoord) + " and l.x_coords <= " + str(xCoord + offset) + " and l.y_coords >= " + str(yCoord) + "  and l.y_coords <= + " + str(yCoord+offset)
+    cur.execute(qItemFind)
+    # mysql.connection.commit()
+    candidateItems = cur.fetchall()
+    print(len(candidateItems))
+
+    for candidate in candidateItems: 
+      candidate_item_words = str.split(candidate['item_name'])
+      print(str(candidate_item_words))
+      if (any([item in candidate_item_words for item in cur_found_item_words ])): 
+        item_name = userOne['item_name']
+
+        
+        p1 = cur.execute("select * from items_collection.user where user_id = \"" + str(posterId) + "\"")
+        
+        phone_number_1 = cur.fetchone()
+        p1R = "123456789"
+        if phone_number_1 is not None: 
+          p1R = phone_number_1['phone_number']
+
+        p2 = cur.execute("select * from items_collection.user where user_id = \"" + str(candidate['user_id']) + "\"")
+        p2R = "123456789"
+        phone_number_2 = cur.fetchone()
+        if phone_number_2 is not None: 
+          p2R = phone_number_2['phone_number']
+
+
+        twillio_notify_users(p1R, p2R, item_name)
+        print('notified one')
+
+    
+
+
+
+      
+
+#todo: dashboard? 
+
+
+
 
 
 @app.post('/delete-lost-item')
@@ -141,10 +243,10 @@ def delete_lost_item_from_table(request):
 
 # user round owner of lost item
 
-
 @app.post('/delete-found-item')
 def delete_found_item():
     return delete_found_item_from_table(request)
+
 
 
 def delete_found_item_from_table(request):
@@ -155,7 +257,7 @@ def delete_found_item_from_table(request):
     mysql.connection.commit()
     return str(output)
 
-def twillio_notify_users(phone_number1, phone_number2, item_name, location):
+def twillio_notify_users(phone_number1, phone_number2, item_name):
   """
   phone number 1 is the person who lost the item
   phone number 2 is the person who found the item
@@ -163,8 +265,8 @@ def twillio_notify_users(phone_number1, phone_number2, item_name, location):
   using twillio API to notify users
   """
 
-  message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name} at {location}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
-  message_to_found_person = f"Hello, this is Find.it platform texting! Another user who potentially found {item_name} at {location}!! Please reach out to this phone number, {phone_number2}, to see if there is a match!"
+  # message_to_lost_person = f"Hello, this is Find.it platform texting! Another user who potentially lost {item_name}!! Please reach out to this phone number, {phone_number1}, to see if there is a match!"
+  message_to_found_person = f"Hello, this is Find.it platform texting! Another user who potentially found {item_name}!! Please reach out to this phone number, {phone_number2}, to see if there is a match!"
   account_sid = config("account_sid")
   auth_token = config("auth_token")
   client = Client(account_sid, auth_token)
